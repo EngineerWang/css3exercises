@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.circle, .circle::after{
+			width: 150px;
+			height: 150px;
+			border: 10px solid;
+			border-radius: 50%;
+			position: absolute;
+		}
+		.circle::after{
+			content: '';
+			display: block;
+			margin-top: -10px;
+			margin-left: -10px;
+		}
+		.circle.blue::after{
+			z-index: 1;
+			border-color: blue;
+			border-bottom-color: transparent;
+		}
+		.circle.black::after{
+			border-color: black;
+			z-index: 1; 
+			border-left-color: transparent;
+		}
+		.circle.red::after{
+			border-color: red;
+			z-index: 1;
+			border-left-color: transparent;
+		}
+		.circle.yellow::after{
+			border-color: yellow;
+		}
+		.circle.green::after{
+			border-color: green;
+			z-index: 1;
+			border-top-color: transparent;
+			border-right-color: transparent;
+		}
+		.blue{
+			border-color: blue;
+		}
+		.black{
+			top: 0;
+			left: 180px;
+			border-color: black;
+		}
+		.red{
+			top: 0;
+			left: 360px;
+			border-color: red;
+		}
+		.yellow{
+			top: 85px;
+			left: 85px;
+			border-color: yellow;
+		}
+		.green{
+			top: 85px;
+			left: 265px;
+			border-color: green;
+		}
+	</style>
+</head>
+<body>
+	<div class="circle blue"></div>
+	<div class="circle black"></div>
+	<div class="circle red"></div>
+	<div class="circle yellow"></div>
+	<div class="circle green"></div>
+</body>
+</html>

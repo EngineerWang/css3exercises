@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#clock{
+			width: 400px;
+			height: 400px;
+			border:5px solid #000;
+			margin:50px auto;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			-ms-border-radius: 50%;
+			-o-border-radius: 50%;
+			border-radius: 50%;
+			position: relative;
+		}
+		#dial li{
+			position: absolute;
+			width: 5px;
+			height: 20px;
+			background-color: #000;
+			left: 195px;
+			-webkit-transform-origin:5px 200px;
+			-moz-transform-origin:5px 200px;
+			-ms-transform-origin:5px 200px;
+			-o-transform-origin:5px 200px;
+			transform-origin:5px 200px;
+		}
+		#dial li:nth-child(5n+1){
+			height: 30px;
+		}
+		#hours, #minutes, #seconds{
+			background-color: #000;
+			position: absolute;
+			-webkit-transform-origin: bottom;
+			-moz-transform-origin: bottom;
+			-ms-transform-origin: bottom;
+			-o-transform-origin: bottom;
+			transform-origin: bottom;
+		}
+		#hours{
+			width: 10px;
+			height: 80px;
+			left: 195px;
+			top: 120px;
+		}
+		#minutes{
+			width: 10px;
+			height: 100px;
+			left: 195px;
+			top: 100px;
+		}
+		#seconds{
+			background-color: #f00;
+			width: 4px;
+			height: 120px;
+			left: 198px;
+			top: 80px;
+		}
+		#center{
+			width: 20px;
+			height: 20px;
+			background-color: #000;
+			position: absolute;
+			top: 190px;
+			left: 190px;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			-ms-border-radius: 50%;
+			-o-border-radius: 50%;
+			border-radius: 50%;
+		}
+	</style>
+</head>
+<body>
+	<div id="clock">
+		<ul id="dial"></ul>
+		<div id="hours"></div>
+		<div id="minutes"></div>
+		<div id="seconds"></div>
+		<div id="center"></div>
+	</div>
+
+	<script>
+		var oDial = document.getElementById('dial');
+		var oHours = document.getElementById('hours')
+		var oMinutes = document.getElementById('minutes');
+		var oSeconds = document.getElementById('seconds');
+		var html = '';
+		for(var i=0; i<60; i++){
+			var iDeg = i * 6;
+			html += '<li style="-webkit-transform:rotate('+iDeg+'deg);-moz-transform:rotate('+iDeg+'deg);-ms-transform:rotate('+iDeg+'deg);-o-transform:rotate('+iDeg+'deg);transform:rotate('+iDeg+'deg);"></li>';
+		}
+		oDial.innerHTML = html;
+		run();
+		function run(){
+			var now = new Date();
+			var hours = now.getHours(),
+				minutes = now.getMinutes(),
+				seconds = now.getSeconds();
+			oHours.style.WebkitTransform = 'rotate('+ (hours + minutes/60)*30 +'deg)';
+			oHours.style.MozTransform = 'rotate('+ (hours + minutes/60)*30 +'deg)';
+			oHours.style.MsTransform = 'rotate('+ (hours + minutes/60)*30 +'deg)';
+			oHours.style.OTransform = 'rotate('+ (hours + minutes/60)*30 +'deg)';
+			oHours.style.transform = 'rotate('+ (hours + minutes/60)*30 +'deg)';
+			oMinutes.style.WebkitTransform = 'rotate('+ (minutes + seconds/60)*6 +'deg)';
+			oMinutes.style.MozTransform = 'rotate('+ (minutes + seconds/60)*6 +'deg)';
+			oMinutes.style.MsTransform = 'rotate('+ (minutes + seconds/60)*6 +'deg)';
+			oMinutes.style.OTransform = 'rotate('+ (minutes + seconds/60)*6 +'deg)';
+			oMinutes.style.transform = 'rotate('+ (minutes + seconds/60)*6 +'deg)';
+			oSeconds.style.WebkitTransform = 'rotate('+ seconds*6+'deg)';
+			oSeconds.style.MozTransform = 'rotate('+ seconds*6+'deg)';
+			oSeconds.style.MsTransform = 'rotate('+ seconds*6+'deg)';
+			oSeconds.style.OTransform = 'rotate('+ seconds*6+'deg)';
+			oSeconds.style.transform = 'rotate('+ seconds*6+'deg)';
+		}
+		setInterval(run, 1000);
+	</script>
+</body>
+</html>
