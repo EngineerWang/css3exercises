@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			-webkit-perspective: 800px;
+			-moz-perspective: 800px;
+			-ms-perspective: 800px;
+			-o-perspective: 800px;
+			perspective: 800px;
+			-webkit-perspective-origin: 50% -30%;
+			-moz-perspective-origin: 50% -30%;
+			-ms-perspective-origin: 50% -30%;
+			-o-perspective-origin: 50% -30%;
+			perspective-origin: 50% -30%;
+		}
+		#container{
+			width: 125px;
+			height: 125px;
+			margin: 200px auto;
+			-webkit-transform-style: preserve-3d;
+			-moz-transform-style: preserve-3d;
+			-ms-transform-style: preserve-3d;
+			-o-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+			-webkit-transition: transform 2s linear;
+			-moz-transition: transform 2s linear;
+			-ms-transition: transform 2s linear;
+			-o-transition: transform 2s linear;
+			transition: transform 2s linear;
+		}
+		#container img{
+			width: 125px;
+			height: 125px;
+			position: absolute;
+			cursor: pointer;
+			-webkit-transition: transform 2s linear;
+			-moz-transition: transform 2s linear;
+			-ms-transition: transform 2s linear;
+			-o-transition: transform 2s linear;
+			transition: transform 2s linear;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<script>
+		(function(){
+			var NUM = 9;
+			var oContainer = document.querySelector('#container');
+			var aImgs = [];
+			for(var i=0; i<NUM; i++){
+				var oImg = new Image();
+				(function(idx){
+					oImg.onload = function(){
+						loadSuccess(idx);
+					};
+				})(i);
+				oImg.src = 'img/thumbs/'+ (i + 1) +'.jpg';
+				oContainer.appendChild(oImg);
+				aImgs.push(oImg);
+			}
+			var index = 1;
+			function loadSuccess(idx){
+				oContainer.onclick = function(){
+					setStyle(this, 'transform', 'rotateY('+ (40 * i++) +'deg)');
+				}
+				setTimeout(function(){
+					setStyle(aImgs[idx], 'transform', 'rotateY('+ 40*idx +'deg) translateZ(200px)');
+				}, (9 - idx) * 100);
+			}
+			function setStyle(elem, prop, val){
+				['Webkit', 'Moz', 'Ms', 'O', ''].forEach(function(prefix){
+					elem.style[prefix + prop.charAt(0).toUpperCase() + prop.substring(1)] = val;
+				});
+			}
+		})();
+	</script>
+</body>
+</html>

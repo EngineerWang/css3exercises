@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		html,body, #container{
+			width: 100%;
+			height: 100%;
+		}
+		body{
+			background: url(img/bg.jpg) repeat;
+		}
+		#container{
+			position: relative;
+		}
+		#container .img{
+			position: absolute;
+			border: 5px solid #fff;
+			-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+			-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+			-ms-box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+			-o-box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+			box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+			background-repeat: no-repeat;
+			top: -135px;
+			left: -135px;
+			cursor: pointer;
+			-webkit-transition: all 2s ease-in-out;
+			-moz-transition: all 2s ease-in-out;
+			-ms-transition: all 2s ease-in-out;
+			-o-transition: all 2s ease-in-out;
+			transition: all 2s ease-in-out;
+		}
+		#container span{
+			display: block;
+			opacity: 0;
+			border: 5px solid #fff;
+			background-repeat: no-repeat;
+			-webkit-transition: all 1s ease-in-out;
+			-moz-transition: all 1s ease-in-out;
+			-ms-transition: all 1s ease-in-out;
+			-o-transition: all 1s ease-in-out;
+			transition: all 1s ease-in-out;
+		}
+		#prev, #next{
+			display: block;
+			width: 60px;
+			height: 60px;
+			background-color: rgba(255, 255, 255, .8);
+			background-repeat: no-repeat;
+			background-position: center;
+			position: absolute;
+			top: 50%;
+			margin-top: -30px;
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			-ms-border-radius: 10px;
+			-o-border-radius: 10px;
+			border-radius: 10px;
+			opacity: 0;
+			-webkit-transition: all 2s ease-in-out;
+			-moz-transition: all 2s ease-in-out;
+			-ms-transition: all 2s ease-in-out;
+			-o-transition: all 2s ease-in-out;
+			transition: all 2s ease-in-out;
+			cursor: pointer;
+		}
+		#prev{
+			left: -20px;
+			background-image: url(img/prev.png);
+		}
+		#next{
+			right: -20px;
+			background-image: url(img/next.png);
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<div id="arrows">
+		<span id="prev"></span>
+		<span id="next"></span>
+	</div>
+	<script>
+		(function(){
+			var ROW = 4,
+				COL = 6,
+				NUM = ROW * COL,
+				THUMB_IMG_WIDTH = 125,
+				THUMB_IMG_HEIGHT = 125,
+				BIG_IMG_WIDTH = 750,
+				BIG_IMG_HEIGHT = 500;
+			var oContainer = document.getElementById('container');
+			var oPrev = document.getElementById('prev');
+			var oNext = document.getElementById('next');
+			var aImgs = oContainer.getElementsByClassName('img');
+			var count = 0;
+			var index = 0;
+			var nowIdx = 1;
+			var bClick = false;
+			for(var i=0; i<NUM; i++){
+				var oThumbImg = new Image();
+				var oBigImg = new Image();
+				oThumbImg.onload = oBigImg.onload = function(){
+					count++;
+					if(count == NUM*2){
+						loadSucess();
+					}
+				}
+				oThumbImg.src = 'img/thumbs/'+ (i + 1)+'.jpg';
+				oBigImg.src = 'img/'+ (i + 1)+'.jpg';
+			}
+			function loadSucess(){
+				var iColGap = (oContainer.offsetWidth - THUMB_IMG_WIDTH * COL) / (COL + 1);
+				var iRowGap = (oContainer.offsetHeight - THUMB_IMG_HEIGHT * ROW) / (ROW + 1);
+				var oBigImgPos = {
+					left: (oContainer.offsetWidth - BIG_IMG_WIDTH) / 2,
+					top: (oContainer.offsetHeight - BIG_IMG_HEIGHT) / 2
+				};
+				for(var i=0; i<ROW; i++){
+					for(var j=0; j<COL; j++){
+						index++;
+						var oDiv = document.createElement('div');
+						var oSpan = document.createElement('span');
+						oDiv.className = 'img';
+						oDiv.style.width = oSpan.style.width = THUMB_IMG_WIDTH + 'px';
+						oDiv.style.height = oSpan.style.height = THUMB_IMG_HEIGHT + 'px';
+						oDiv.style.backgroundImage = 'url(img/thumbs/'+ index +'.jpg)';
+						oDiv.appendChild(oSpan);
+						oDiv.pos = {
+							row: i,
+							col: j,
+							shiftX: (iColGap + THUMB_IMG_WIDTH) * (j + 1),
+							shiftY: (iRowGap + THUMB_IMG_HEIGHT) * (i + 1),
+							firstLeft: (iColGap + THUMB_IMG_WIDTH) * j + iColGap,
+							firstTop: (iRowGap + THUMB_IMG_HEIGHT) * i + iRowGap,
+							afterLeft: oBigImgPos.left + j * THUMB_IMG_WIDTH,
+							afterTop: oBigImgPos.top + i * THUMB_IMG_HEIGHT
+						};
+						oDiv.index = index;
+						oContainer.appendChild(oDiv);
+					}
+				}
+				var timer = setInterval(function(){
+				/*aImgs[--index].style.left = aImgs[index].pos.left + 'px';
+				aImgs[index].style.top = aImgs[index].pos.top + 'px';*/
+				index--;
+				// setStyle(aImgs[index], 'transform', 'rotate('+ (Math.random()*40 - 20) +'deg)');
+				setStyle(aImgs[index], 'transform', 'translate('+ aImgs[index].pos.shiftX +'px,'+ aImgs[index].pos.shiftY +'px) rotate('+ (Math.random()*40 - 20) +'deg)');
+				if(index == 0){
+					clearInterval(timer);
+				}
+				}, 100);
+				oContainer.onclick = function(e){
+					var target = e.target;
+					if(target != oContainer){
+						if(bClick){
+							for(var i=0; i<NUM; i++){
+								var oSpan = aImgs[i].getElementsByTagName('span')[0];
+								oSpan.style.opacity = '0';
+								oSpan.style.borderWidth = '5px';
+								setStyle(aImgs[i], 'transform', 'translate('+ aImgs[i].pos.shiftX +'px,'+ aImgs[i].pos.shiftY +'px) rotate('+ (Math.random()*40 - 20) +'deg)');
+								/*aImgs[i].style.left = aImgs[i].pos.left + 'px';
+								aImgs[i].style.top = aImgs[i].pos.top + 'px';*/
+								aImgs[i].style.borderWidth = '5px';
+								/*setStyle(aImgs[i], 'transform', 'rotate('+ (Math.random()*40 - 20) +'deg)');*/
+								
+							}
+							oPrev.style.opacity = oNext.style.opacity = '0';
+						}else{
+							for(var i=0; i<NUM; i++){
+								/*aImgs[i].style.left = oBigImgPos.left + aImgs[i].pos.col * THUMB_IMG_WIDTH + 'px';
+								aImgs[i].style.top = oBigImgPos.top + aImgs[i].pos.row * THUMB_IMG_HEIGHT + 'px';*/
+								/*console.log('x: ' + (aImgs[i].pos.afterLeft - aImgs[i].pos.firstLeft) + ' y:' + (aImgs[i].pos.afterTop - aImgs[i].pos.firstTop));*/
+								var oSpan = aImgs[i].getElementsByTagName('span')[0];
+								oSpan.style.borderWidth = '1px';
+								oSpan.style.opacity = '1';
+								setStyle(aImgs[i], 'transform', 'translate('+ (aImgs[i].pos.shiftX + aImgs[i].pos.afterLeft - aImgs[i].pos.firstLeft) +'px,'+ (aImgs[i].pos.shiftY + aImgs[i].pos.afterTop - aImgs[i].pos.firstTop) +'px) rotate(0deg)');
+								aImgs[i].style.borderWidth = '1px';			
+								oSpan.style.backgroundImage = 'url(img/'+ target.parentNode.index +'.jpg)';
+								oSpan.style.backgroundPosition = (-aImgs[i].pos.col * THUMB_IMG_WIDTH) + 'px ' + (-aImgs[i].pos.row *THUMB_IMG_HEIGHT) + 'px';
+								
+								/*setStyle(aImgs[i], 'transform', 'rotate(0deg)');*/
+							}
+							oPrev.style.opacity = oNext.style.opacity = '1';
+							nowIdx = target.parentNode.index;
+						}
+						bClick = !bClick;
+					}
+				}
+				
+				oPrev.onclick = oNext.onclick = function(){
+						if(this == oPrev){
+						nowIdx--;
+						if(nowIdx == 0){
+							nowIdx = NUM;
+						}
+						}else{
+							nowIdx++;
+							if(nowIdx == NUM + 1){
+								nowIdx = 1;
+							}
+						}
+						var arr = [];
+						for(var i=0; i<NUM; i++){
+							arr.push(i);
+						}
+						arr.sort(function(a, b){
+							return Math.random() - 0.5;
+						});
+						var timer = setInterval(function(){
+							var item = arr.pop();
+							var oSpan = aImgs[item].getElementsByTagName('span');
+							aImgs[item].getElementsByTagName('span')[0].style.backgroundImage = 'url(img/'+ nowIdx +'.jpg)';	
+							if(arr.length == 0){
+								clearInterval(timer);
+							}
+						}, 50);
+				}
+			}
+
+			function setStyle(elem, prop, val){
+				['Webkit', 'Moz', 'Ms', 'O', ''].forEach(function(prefix){
+					elem.style[prefix + prop.charAt(0).toUpperCase() + prop.substring(1)] = val;
+				});
+			}
+		})();
+
+	</script>
+</body>
+</html>

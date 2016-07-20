@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#container, #imgs{
+			width: 500px;
+			height: 300px;
+		}
+		#container{
+			margin: 50px auto;
+			position: relative;
+		}
+		#imgs{
+			position: relative;
+			-webkit-perspective: 800px;
+		}
+		#imgs img{
+			position: absolute;
+			opacity: 0;
+			-webkit-transform-origin: bottom;
+			-moz-transform-origin: bottom;
+			-ms-transform-origin: bottom;
+			-o-transform-origin: bottom;
+			transform-origin: bottom;
+		}
+		#prev, #next{
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			background-color: #ccc;
+			text-align: center;
+			line-height: 50px;
+			font-size: 40px;
+			top: 50%;
+			margin-top: -25px;
+			font-weight: bold;
+			color: #fff;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			-ms-border-radius: 50%;
+			-o-border-radius: 50%;
+			border-radius: 50%;
+			-webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+			-moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+			-ms-box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+			-o-box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+			box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+			-webkit-text-shadow: 0 0 5px rgba(0, 0, 0, 1);
+			-moz-text-shadow: 0 0 5px rgba(0, 0, 0, 1);
+			-ms-text-shadow: 0 0 5px rgba(0, 0, 0, 1);
+			-o-text-shadow: 0 0 5px rgba(0, 0, 0, 1);
+			text-shadow: 0 0 5px rgba(0, 0, 0, 1);
+			cursor: pointer;
+		}
+		#prev{
+			left: -100px;
+		}
+		#next{
+			right: -100px;
+		}
+		.show{
+			-webkit-animation: show 2s ease forwards;
+			-moz-animation: show 2s ease forwards;
+			-ms-animation: show 2s ease forwards;
+			-o-animation: show 2s ease forwards;
+			animation: show 2s ease forwards;
+		}
+		.hide{
+			-webkit-animation: hide .5s ease forwards;
+			-moz-animation: hide .5s ease forwards;
+			-ms-animation: hide .5s ease forwards;
+			-o-animation: hide .5s ease forwards;
+			animation: hide .5s ease forwards;
+		}
+		@-webkit-keyframes show {
+			0% {
+				opacity: 0;
+				-webkit-transform: rotateX(180deg);
+				-moz-transform: rotateX(180deg);
+				-ms-transform: rotateX(180deg);
+				-o-transform: rotateX(180deg);
+				transform: rotateX(180deg);
+			}
+			100% {
+				opacity: 1;
+				-webkit-transform: rotateX(0deg);
+				-moz-transform: rotateX(0deg);
+				-ms-transform: rotateX(0deg);
+				-o-transform: rotateX(0deg);
+				transform: rotateX(0deg);
+			}
+		}
+		@-webkit-keyframes hide {
+			0% {
+				opacity: 1;
+				-webkit-transform: rotateX(0deg);
+				-moz-transform: rotateX(0deg);
+				-ms-transform: rotateX(0deg);
+				-o-transform: rotateX(0deg);
+				transform: rotateX(0deg);
+			}
+			100% {
+				opacity: 0;
+				-webkit-transform: rotateX(-180deg);
+				-moz-transform: rotateX(-180deg);
+				-ms-transform: rotateX(-180deg);
+				-o-transform: rotateX(-180deg);
+				transform: rotateX(-180deg);
+			}
+		}
+	</style>
+</head>
+<body onselectstart="return false;">
+	<div id="container">
+		<div id="imgs">
+			<img src="img/bluesky.jpg" alt="" class="show">
+			<img src="img/people.jpg" alt="">
+			<img src="img/seed.jpg" alt="">
+			<img src="img/universe.jpg" alt="">
+		</div>
+		<div id="arrows">
+			<span id="prev">&lt;</span>
+			<span id="next">&gt;</span>
+		</div>
+	</div>
+
+	<script>
+		(function(){
+			var oPrev = document.getElementById('prev'),
+			oNext = document.getElementById('next'),
+			oImgs = document.getElementsByTagName('img');
+			var nowIdx = 0;
+			oNext.onclick = function(){
+				oImgs[nowIdx].className = 'hide';
+				nowIdx++;
+				if(nowIdx == oImgs.length){
+					nowIdx = 0;
+				}
+				oImgs[nowIdx].className = 'show';
+			};
+			oPrev.onclick = function(){
+				oImgs[nowIdx].className = 'hide';
+				nowIdx--;
+				if(nowIdx == -1){
+					nowIdx = oImgs.length - 1;
+				}
+				oImgs[nowIdx].className = 'show';
+			};
+		})();
+	</script>
+</body>
+</html>

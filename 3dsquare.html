@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;	
+		}
+		body{
+			-webkit-perspective: 800px;
+			-moz-perspective: 800px;
+			-ms-perspective: 800px;
+			-o-perspective: 800px;
+			perspective: 800px;
+		}
+		#container{
+			width: 200px;
+			height: 200px;
+			margin: 200px auto;
+			-webkit-transform-style: preserve-3d;
+			-moz-transform-style: preserve-3d;
+			-ms-transform-style: preserve-3d;
+			-o-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+			animation: rotate 2s linear infinite;
+		}
+		@-webkit-keyframes rotate {
+			from{
+
+			}
+			to{
+				-webkit-transform: rotateY(360deg);
+				-moz-transform: rotateY(360deg);
+				-ms-transform: rotateY(360deg);
+				-o-transform: rotateY(360deg);
+				transform: rotateY(360deg);
+			}
+		}
+		@-moz-keyframes rotate {
+			from{
+
+			}
+			to{
+				-webkit-transform: rotateY(360deg);
+				-moz-transform: rotateY(360deg);
+				-ms-transform: rotateY(360deg);
+				-o-transform: rotateY(360deg);
+				transform: rotateY(360deg);
+			}
+		}
+		@-ms-keyframes rotate {
+			from{
+
+			}
+			to{
+				-webkit-transform: rotateY(360deg);
+				-moz-transform: rotateY(360deg);
+				-ms-transform: rotateY(360deg);
+				-o-transform: rotateY(360deg);
+				transform: rotateY(360deg);
+			}
+		}
+		@-o-keyframes rotate {
+			from{
+
+			}
+			to{
+				-webkit-transform: rotateY(360deg);
+				-moz-transform: rotateY(360deg);
+				-ms-transform: rotateY(360deg);
+				-o-transform: rotateY(360deg);
+				transform: rotateY(360deg);
+			}
+		}
+		@keyframes rotate {
+			from{
+
+			}
+			to{
+				-webkit-transform: rotateY(360deg);
+				-moz-transform: rotateY(360deg);
+				-ms-transform: rotateY(360deg);
+				-o-transform: rotateY(360deg);
+				transform: rotateY(360deg);
+			}
+		}
+		#container .tube{
+			width: 200px;
+			height: 200px;
+			font-size: 40px;
+			/* background-color: rgba(255,255,255,.5); */
+			-webkit-box-shadow: inset 0 0 15px rgba(0, 0, 0, .2);
+			-moz-box-shadow: inset 0 0 15px rgba(0, 0, 0, .2);
+			-ms-box-shadow: inset 0 0 15px rgba(0, 0, 0, .2);
+			-o-box-shadow: inset 0 0 15px rgba(0, 0, 0, .2);
+			-webkit-box-shadow: inset 0 0 15px rgba(0, 0, 0, .2);
+			text-align: center;
+			line-height: 200px;
+			font-weight: bold;
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			-ms-border-radius: 10px;
+			-o-border-radius: 10px;
+			border-radius: 10px;
+			position: absolute;
+			color: rgba(0,0,0,.6);
+		}
+		#container .one{
+			-webkit-transform: rotateY(180deg) translateZ(100px);
+		}
+		#container .two{
+			-webkit-transform: rotateY(-90deg) translateZ(100px);
+		}
+		#container .three{
+			-webkit-transform: rotateX(-90deg) translateZ(100px);
+		}
+		#container .four{
+			-webkit-transform: rotateY(90deg) translateZ(100px);
+		}
+		#container .five{
+			-webkit-transform: rotateX(90deg) translateZ(100px);
+		}
+		#container .six{
+			-webkit-transform: translateZ(100px);
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div class="tube one">1</div>
+		<div class="tube two">2</div>
+		<div class="tube three">3</div>
+		<div class="tube four">4</div>
+		<div class="tube five">5</div>
+		<div class="tube six">6</div>
+	</div>
+</body>
+</html>
