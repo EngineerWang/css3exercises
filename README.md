@@ -1,2 +1,2 @@
 # css3exercises
-some exercise about css3
+some exercises about css3
